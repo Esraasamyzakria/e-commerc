@@ -44,6 +44,7 @@ this.wishlistService.getproducttowishlist().subscribe({
     console.log(res.data)
     const newdata=res.data.map((item:any)=> item.id )
     this.wishlist=newdata
+    this.wishlistService.wishnumber.next(res.count)
   },
 })
   }
@@ -51,6 +52,7 @@ addtocart(id:string):void{
   this.cartService.addProductTocart(id).subscribe({
     next:(res)=>{
   console.log(res)
+  this.wishlistService.wishnumber.next(res.count)
   this.toastrService.success(res.message,'Success')
     },
     error:(err)=>{
@@ -64,6 +66,7 @@ addtocart(id:string):void{
         console.log(res)
         this.wishlist=res.data
         this.toastrService.success(res.message,'Success')
+        this.wishlistService.wishnumber.next(res.count)
       }
     })
 
@@ -74,6 +77,7 @@ addtocart(id:string):void{
         console.log(res)
         this.wishlist=res.data
         this.toastrService.success(res.message,'Success')
+        this.wishlistService.wishnumber.next(res.count)
       }
     })
   }

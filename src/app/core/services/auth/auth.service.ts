@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
 import { api_url } from '../../custom-injection/api_url';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   constructor( private httpClient:HttpClient , @Inject(api_url) private apipath:string) { }
   private readonly router= inject(Router)
-
+  private pLATFORM_ID=inject(PLATFORM_ID)
 
   sendregesterform(data:object):Observable<any>{
    return  this.httpClient.post(this.apipath+ `/auth/signup`,data)
@@ -24,9 +25,12 @@ export class AuthService {
    }
 
    getuserdata():void{
-    this.userdata = jwtDecode(localStorage.getItem("token")!);
-    console.log(this.userdata)
-
+    if(isPlatformBrowser(this.pLATFORM_ID)){
+      if(localStorage.getItem("token") !==null){
+        this.userdata = jwtDecode(localStorage.getItem("token")!);
+        console.log(this.userdata)
+      }
+    }
    }
    logout():void{
     localStorage.removeItem("token");

@@ -76,6 +76,7 @@ export class HomeComponent implements OnInit {
         console.log(res.data)
         const newdata=res.data.map((item:any)=> item.id )
         this.wishlist=newdata
+        this.wishlistService.wishnumber.next(res.count)
       },
     })
   }
@@ -106,6 +107,7 @@ addtocart(id:string):void{
   next:(res)=>{
 console.log(res)
 this.toastrService.success(res.message,'Success')
+this.cartService.cartnumber.next(res.numOfCartItems)
   },
   error:(err)=>{
     console.log(err)
@@ -118,6 +120,7 @@ addwishlist(id:string){
       console.log(res)
       this.wishlist=res.data
       this.toastrService.success(res.message,'Success')
+      this.wishlistService.wishnumber.next(res.count)
     }
   })
 
@@ -128,6 +131,7 @@ removewishlist(id:string){
       console.log(res)
       this.wishlist=res.data
       this.toastrService.success(res.message,'Success')
+      this.wishlistService.wishnumber.next(res.count)
     }
   })
 }

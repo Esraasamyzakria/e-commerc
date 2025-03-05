@@ -30,6 +30,7 @@ export class ProductsComponent {
           console.log(res.data)
           const newdata=res.data.map((item:any)=> item.id )
           this.wishlist=newdata
+          this.wishlistService.wishnumber.next(res.count)
         },
       })
     }
@@ -49,6 +50,7 @@ export class ProductsComponent {
     next:(res)=>{
   console.log(res)
   this.toastrService.success(res.message,'Success')
+  this.cartService.cartnumber.next(res.numOfCartItems)
     },
     error:(err)=>{
       console.log(err)
@@ -61,6 +63,7 @@ export class ProductsComponent {
         console.log(res)
         this.wishlist=res.data
         this.toastrService.success(res.message,'Success')
+        this.wishlistService.wishnumber.next(res.count)
       }
     })
 
@@ -72,6 +75,7 @@ export class ProductsComponent {
         this.wishlist=res.data
         this.toastrService.success(res.message,'Success')
         this.products=res.data
+        this.wishlistService.wishnumber.next(res.count)
       }
     })
   }

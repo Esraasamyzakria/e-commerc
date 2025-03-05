@@ -8,14 +8,8 @@ import { Header } from 'primeng/api';
   providedIn: 'root'
 })
 export class CartService {
-  cartnumber:BehaviorSubject<any>=new BehaviorSubject<any>(0)
+  cartnumber:BehaviorSubject<number>=new BehaviorSubject(0);
   constructor( private httpClient:HttpClient , @Inject(api_url) private apipath:string) {
-    this.getLoggedusercart().subscribe({
-      next:(res)=>{
-        this.cartnumber.next(res.numOfCartItems)
-        
-      }
-    })
   }
   addProductTocart(Id:string):Observable<any>{
     return this.httpClient.post(this.apipath +`/cart`,

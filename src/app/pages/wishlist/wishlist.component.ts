@@ -26,6 +26,7 @@ ngOnInit(): void {
         this.products=res.data
         const newdata=res.data.map((item:any)=> item.id )
         this.wishlist=newdata
+        this.wishlistService.wishnumber.next(res.count)
       }
     })
 }
@@ -33,6 +34,7 @@ addtocart(id:string):void{
   this.cartService.addProductTocart(id).subscribe({
    next:(res)=>{
  console.log(res)
+
 
  this.toastrService.success(res.message,'Success')
    },
@@ -49,6 +51,8 @@ addtocart(id:string):void{
       this.wishlist=res.data;
       const newdata=this.products.filter((item:any)=> this.wishlist.includes(item._id));
       this.products=newdata;
+      this.wishlistService.wishnumber.next(res.count)
+
     }
   })
 }

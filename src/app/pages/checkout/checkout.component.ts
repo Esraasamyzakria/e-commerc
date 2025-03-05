@@ -37,11 +37,12 @@ export class CheckoutComponent implements OnInit {
   }
   submitform():void{
     console.log(this.checkoutforms.value)
-    this.ordersService.checkoutpayment(this.cartid,this.checkoutforms.value).subscribe({
+    this.ordersService.checkoutpayment(this.cartid , this.checkoutforms.value).subscribe({
       next:(res)=>{
         console.log(res)
         if(res.status==='success'){
-          open(res.session.url,'_self')
+          window.location.href=res.session.url
+          // open(res.session.url,'_self')
         }
       }
     })

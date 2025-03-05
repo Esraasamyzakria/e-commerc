@@ -15,8 +15,6 @@ export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService)
   cartdata:ICart={} as ICart;
   ngOnInit(): void {
-
-
     this.getcartdata()
   };
   getcartdata():void{
@@ -56,6 +54,7 @@ clearallproduct():void{
     next:(res)=>{
       console.log(res)
       this.cartdata={} as ICart;
+      this.cartService.cartnumber.next(0)
       }
   })
 }
